@@ -229,7 +229,7 @@ const Calculators = () => {
                   </>
                 )}
 
-                {(activeTab === 'lumpsum-sip' || activeTab === 'sip-target') && (
+                {activeTab === 'lumpsum-sip' && (
                   <InputGroup label="Annual Step-up" value={inputs.stepUp} min={0} max={50} step={1} onChange={(v) => setInputs({...inputs, stepUp: v})} isPercent isStepUp />
                 )}
               </>
