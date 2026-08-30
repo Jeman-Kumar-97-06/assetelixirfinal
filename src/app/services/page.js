@@ -90,22 +90,20 @@ export default function ServicesPage() {
       <AssetElixirHeader />
 
       {/* 2. HERO SECTION */}
-      <section className="pt-36 sm:pt-44 pb-12 bg-[#F4F4F4] w-full text-center">
+      <section className="pt-36 sm:pt-44 pb-12 bg-white w-full text-center"> {/* #F4F4F4 */}
         <span className="bg-[#FACC15] text-black px-10 py-3 mb-10 rounded-full text-[14px] font-bold transition shadow-sm mb-4 inline-block">
           Our Services
         </span>
-        <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 max-w-5xl mx-auto">
-          <h1 className="text-7xl/17 sm:text-3xl/17 md:text-3xl/17 lg:text-7xl/17 font-black text-[#FA9632] notoSerifBold leading-tight">
-            Financial Decisions
-          </h1>
-          <h1 className="text-3xl/15 sm:text-4xl/15 lg:text-5xl/15 text-black notoSerifRegular leading-tight mb-6">
-            Are Easier When You Don't Have To Make Them Alone
-          </h1>
+        <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 max-w-full mx-auto">
+          <span className="text-7xl/17 sm:text-3xl/17 md:text-3xl/17 lg:text-7xl/17 font-black text-[#FA9632] notoSerifBold leading-tight">
+            Financial Decisions <span className='text-black'>Are Easier When <br/> You Don't Have To Make Them Alone</span>
+          </span>
+          
           <p className="text-[20px] sm:text-[24px] text-black/80 notoSerifRegular leading-relaxed">
             Nobody wakes up excited to think about tax slabs or insurance premiums.
           </p>
           <p className="text-[24px] sm:text-[24px] text-black/80 notoSerifRegular leading-relaxed">
-            But most of what keeps you up at night—will I retire okay, am I paying off the right debt first, is my family covered if something happens to me—comes down to a plan.
+            But most of what keeps you up at night—will I retire okay, am I paying off the right <br/>debt first, is my family covered if something happens to me—comes down to a plan.
           </p>
           <p className="text-[24px] sm:text-[24px] text-black/80 notoSerifRegular leading-relaxed mb-8">
             That's what we build together, step by step, starting wherever you are right now.
