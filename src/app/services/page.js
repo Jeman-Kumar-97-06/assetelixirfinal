@@ -95,11 +95,11 @@ export default function ServicesPage() {
           Our Services
         </span>
         <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16 max-w-full mx-auto">
-          <span className="text-7xl/17 sm:text-3xl/17 md:text-3xl/17 lg:text-7xl/17 font-black text-[#FA9632] notoSerifBold leading-tight">
+          <span className="text-7xl sm:text-3xl md:text-3xl lg:text-7xl font-black text-[#FA9632] notoSerifBold leading-tight">
             Financial Decisions <span className='text-black'>Are Easier When <br/> You Don't Have To Make Them Alone</span>
           </span>
           
-          <p className="text-[20px] sm:text-[24px] text-black/80 notoSerifRegular leading-relaxed">
+          <p className="mt-5 text-[20px] sm:text-[24px] text-black/80 notoSerifRegular leading-relaxed">
             Nobody wakes up excited to think about tax slabs or insurance premiums.
           </p>
           <p className="text-[24px] sm:text-[24px] text-black/80 notoSerifRegular leading-relaxed">

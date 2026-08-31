@@ -1,5 +1,3 @@
-
-
 "use client"
 import React, { useState, useEffect } from 'react';
 import { 
@@ -168,13 +166,6 @@ const Calculators = () => {
               </div>
             )}
 
-            {activeTab === 'swp' && (
-              <div className="flex bg-slate-100 p-1 rounded-xl w-fit">
-                <button onClick={() => setSwpMode('balance')} className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${swpMode === 'balance' ? 'bg-white text-black shadow-sm' : 'text-slate-400'}`}>Calculate Balance</button>
-                <button onClick={() => setSwpMode('withdrawal')} className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${swpMode === 'withdrawal' ? 'bg-white text-black shadow-sm' : 'text-slate-400'}`}>Calculate Withdrawal</button>
-              </div>
-            )}
-
             {activeTab === 'home-loan' ? (
               <>
                 <InputGroup label="Loan Amount" value={inputs.loanAmount} min={100000} max={100000000} step={100000} onChange={(v) => setInputs({...inputs, loanAmount: v})} />
@@ -238,7 +229,7 @@ const Calculators = () => {
                           <PiggyBank className={`w-5 h-5 ${goalMode === 'sip' ? 'text-white' : 'text-slate-400'}`} />
                           <span className="font-bold text-md">Monthly SIP</span>
                         </div>
-                        <span className={`text-[11px] ml-8 ${goalMode === 'sip' ? 'text-white/90' : 'text-slate-500'}`}>Invest regularly over time</span>
+                        <span className={`text-[15px] ml-8 ${goalMode === 'sip' ? 'text-white/90' : 'text-slate-500'}`}>Invest regularly over time</span>
                       </button>
                       
                       <button 
@@ -249,7 +240,43 @@ const Calculators = () => {
                           <IndianRupee className={`w-5 h-5 ${goalMode === 'lumpsum' ? 'text-white' : 'text-slate-400'}`} />
                           <span className="font-bold text-md">Lumpsum</span>
                         </div>
-                        <span className={`text-[11px] ml-8 ${goalMode === 'lumpsum' ? 'text-white/90' : 'text-slate-500'}`}>Invest a one-time amount</span>
+                        <span className={`text-[15px] ml-8 ${goalMode === 'lumpsum' ? 'text-white/90' : 'text-slate-500'}`}>Invest a one-time amount</span>
+                      </button>
+                    </div>
+                    <div className="mt-6 bg-[#fff8f0] border border-[#ffedd5] text-[#d97706] text-xs p-3 rounded-lg flex items-center gap-2">
+                      <span className="font-bold">✓</span> All calculations are estimates and for illustration purposes only.
+                    </div>
+                  </div>
+                )}
+
+                {/* NEW MONTHLY SWP BOTTOM TOGGLES */}
+                {activeTab === 'swp' && (
+                  <div className="mt-8 pt-8 border-t border-slate-100">
+                    <div className="flex items-center gap-2 mb-4">
+                      <label className="text-sm font-bold text-slate-700">What Would You Like To Calculate?</label>
+                      <div className="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] text-slate-400 font-bold">i</div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <button 
+                        onClick={() => setSwpMode('balance')} 
+                        className={`flex flex-col items-start justify-center p-4 rounded-xl border transition-all relative overflow-hidden ${swpMode === 'balance' ? 'border-[#fa9632] bg-[#fa9632] text-white shadow-md' : 'border-slate-200 bg-white text-slate-700 hover:border-[#fa9632]'}`}
+                      >
+                        <div className="flex items-center gap-3 mb-1">
+                          <IndianRupee className={`w-5 h-5 ${swpMode === 'balance' ? 'text-white' : 'text-slate-400'}`} />
+                          <span className="font-bold text-md">Calculate Balance</span>
+                        </div>
+                        <span className={`text-[15px] ml-8 ${swpMode === 'balance' ? 'text-white/90' : 'text-slate-500'}`}>Find your maturity value</span>
+                      </button>
+                      
+                      <button 
+                        onClick={() => setSwpMode('withdrawal')} 
+                        className={`flex flex-col items-start justify-center p-4 rounded-xl border transition-all relative overflow-hidden ${swpMode === 'withdrawal' ? 'border-[#fa9632] bg-[#fa9632] text-white shadow-md' : 'border-slate-200 bg-white text-slate-700 hover:border-[#fa9632]'}`}
+                      >
+                        <div className="flex items-center gap-3 mb-1">
+                          <RefreshCw className={`w-5 h-5 ${swpMode === 'withdrawal' ? 'text-white' : 'text-slate-400'}`} />
+                          <span className="font-bold text-md">Calculate Withdrawal</span>
+                        </div>
+                        <span className={`text-[15px] ml-8 ${swpMode === 'withdrawal' ? 'text-white/90' : 'text-slate-500'}`}>Find monthly withdrawal</span>
                       </button>
                     </div>
                     <div className="mt-6 bg-[#fff8f0] border border-[#ffedd5] text-[#d97706] text-xs p-3 rounded-lg flex items-center gap-2">
