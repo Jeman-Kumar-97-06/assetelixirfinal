@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import ServicesAccordionSection               from '@/components/Accordian';
 import AssetElixirHeader                      from '@/components/Navbar';
 import StatsIndicatorBar                      from '@/components/StatsHome';   
+import Link from 'next/link';
 
 export default function Home() {
   const [scrollProgress, setScrollProgress]               = useState(0);
@@ -385,7 +386,8 @@ export default function Home() {
       <div className="lg:col-span-8 flex flex-col gap-6">
         
         {/* Top Hero Card */}
-        <div 
+        <Link
+          href='/humanside/0'
           className="w-full h-[320px] sm:h-[500px] rounded-[2rem] bg-cover bg-no-repeat relative overflow-hidden flex flex-col justify-end p-6 sm:p-10 text-white group cursor-pointer transition-transform duration-500 ease-out hover:scale-[1.02]"
           style={{ backgroundImage: `url('/image-19.png')` }}
         >
@@ -398,11 +400,12 @@ export default function Home() {
               A bad investment, delayed decisions, or missed opportunities can leave emotional scars that last far longer than the financial loss itself.  
             </p>
           </div>
-        </div>
+        </Link>
 
         {/* Bottom Two Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 flex-1">
-          <div 
+          <Link 
+            href='/humanside/13'
             className="w-full h-[280px] sm:h-full min-h-[280px] rounded-[2rem] bg-cover bg-no-repeat bg-top relative overflow-hidden flex flex-col justify-end p-6 text-white group cursor-pointer transition-transform duration-500 ease-out hover:scale-[1.02]"
             style={{ backgroundImage: `url("/oldwomanmug.png")` }}
           >
@@ -415,9 +418,10 @@ export default function Home() {
                 Financial dependence in old age doesn't arrive suddenly — it arrives slowly, through every year a plan was postponed.
               </p>
             </div>
-          </div>
+          </Link>
 
-          <div 
+          <Link
+            href='/humanside/2'
             className="w-full h-[280px] sm:h-full min-h-[280px] rounded-[2rem] bg-cover bg-no-repeat bg-top relative overflow-hidden flex flex-col justify-end p-6 text-white group cursor-pointer transition-transform duration-500 ease-out hover:scale-[1.02]"
             style={{ backgroundImage: `url('/manlooking.png')` }}
           >
@@ -430,7 +434,7 @@ export default function Home() {
                 Losing it all doesn't just empty a bank account — it can quietly convince a person that starting over is no longer possible for them.  
               </p>
             </div>
-          </div>
+          </Link>
         </div>
 
       </div>
@@ -438,7 +442,8 @@ export default function Home() {
       {/* Right Column (4 cols) */}
       <div className="lg:col-span-4 flex flex-col gap-6">
         
-        <div 
+        <Link 
+          href='/humanside/1'
           className="w-full h-[320px] lg:flex-1 rounded-[2rem] bg-cover bg-center bg-no-repeat relative overflow-hidden flex flex-col justify-end p-6 text-white group cursor-pointer transition-transform duration-500 ease-out hover:scale-[1.02]"
           style={{ backgroundImage: `url('/manheadache.png')` }}
         >
@@ -451,9 +456,10 @@ export default function Home() {
               Earning more without a structure in place doesn't solve the problem - it just makes the gap between income and peace feel more confusing.                    
             </p>
           </div>
-        </div>
+        </Link>
 
-        <div 
+        <Link
+          href='/humanside/4'
           className="w-full h-[280px] lg:flex-1 rounded-[2rem] bg-cover bg-center bg-no-repeat relative overflow-hidden flex flex-col justify-end p-6 text-white group cursor-pointer transition-transform duration-500 ease-out hover:scale-[1.02]"
           style={{ backgroundImage: `url('/WomanHeadache.png')` }}
         >
@@ -466,7 +472,7 @@ export default function Home() {
               Being the strong one for everyone else can mean being the one person whose own future was never fully planned for. 
             </p>
           </div>
-        </div>
+        </Link>
 
       </div>
 
