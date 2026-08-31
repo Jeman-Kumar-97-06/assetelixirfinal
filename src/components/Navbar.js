@@ -31,6 +31,7 @@ export default function AssetElixirHeader() {
         <nav className="hidden lg:flex items-center gap-10 text-base font-medium text-[20px] text-white">
           <Link href="/about-us" className="hover:text-[#FACC15] transition duration-200">Why Elixir</Link>
           <Link href="/calculators" className="hover:text-[#FACC15] transition duration-200">Calculator</Link>
+          <Link href="/blogs" className="hover:text-[#FACC15] transition duration-200">Blog</Link>
           <Link href="/humanside" className="hover:text-[#FACC15] transition duration-200">Human Side</Link>
           <Link href="/testimonials" className="hover:text-[#FACC15] transition duration-200">Testimonial</Link>
           <Link href="/services" className="hover:text-[#FACC15] transition duration-200">Services</Link>

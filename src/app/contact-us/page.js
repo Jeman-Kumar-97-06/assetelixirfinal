@@ -6,20 +6,20 @@ export default function ContactUs() {
     <div className="min-h-screen bg-white w-full pb-20">
       
       {/* Hero Section */}
-      {/* Note: Update the url() to point to your actual background image in the public folder */}
-      <div className="relative w-full h-[500px] bg-[url('/contact-hero.jpg')] bg-cover bg-center rounded-b-[4rem]">
+      {/* Height increased to 600px to stretch the image further down */}
+      <div className="relative w-full h-[600px] bg-[url('/contact-hero.jpg')] bg-cover bg-center rounded-b-[4rem]">
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/60 rounded-b-[4rem]"></div>
         
         {/* Hero Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white pt-10">
           <h1 className="text-5xl md:text-6xl font-serif font-bold mb-4 tracking-wide">Contact Us</h1>
-          {/* <p className="text-xl md:text-2xl font-light">Contact Us</p> */}
         </div>
       </div>
 
       {/* Main Contact Card */}
-      <div className="relative -mt-32 max-w-5xl mx-auto bg-[#fcf6ee] rounded-[2.5rem] shadow-2xl z-10 grid grid-cols-1 md:grid-cols-2 overflow-hidden border border-gray-100">
+      {/* -mt-[228px] exactly counteracts the extra 100px of background height, keeping the page layout completely untouched */}
+      <div className="relative -mt-[228px] max-w-5xl mx-auto bg-[#fcf6ee] rounded-[2.5rem] shadow-2xl z-10 grid grid-cols-1 md:grid-cols-2 overflow-hidden border border-gray-100">
         
         {/* Left Column: Get in Touch */}
         <div className="p-10 md:p-14 md:pr-10 border-b md:border-b-0 md:border-r border-gray-200">
