@@ -1,5 +1,3 @@
-
-
 "use client"
 import React, { useState, useEffect } from 'react';
 import { 
@@ -72,6 +70,7 @@ const Calculators = () => {
           }
           setResult(prev => ({ ...prev, fv: Math.round(swpBalanceValue), invested: (inputs.lumpsum || 0) }));
         } else {
+          // MATH SURGICALLY REPLACED: Solves for Initial Lumpsum Required based on the spreadsheet
           const rSwp = swpMonthlyRate;
           const nSwp = months;
           const pvSwp = (inputs.swpAmount || 0) * ((1 - Math.pow(1 + rSwp, -nSwp)) / rSwp) * (1 + rSwp);
@@ -93,6 +92,7 @@ const Calculators = () => {
         const TargetFV = inputs.target || 0;
 
         if (goalMode === 'lumpsum') {
+          // MATH SURGICALLY REPLACED: Matches spreadsheet logic (Subtracting SIP FV from Target FV)
           const fvSip = (inputs.sip || 0) * ((Math.pow(1 + rateSipMonthlyDecimal, months) - 1) / rateSipMonthlyDecimal) * (1 + rateSipMonthlyDecimal);
           const requiredLumpsumToday = TargetFV - fvSip;
 
@@ -139,9 +139,9 @@ const Calculators = () => {
 
   return (
     <div className="pt-24 pb-20 min-h-screen bg-slate-50">
-      <div className="max-w-[1600px] mx-auto px-4 mt-10">
+      <div className="max-w-[1600px] mx-auto px-4">
         <div className="text-center mb-10">
-          <h1 className="text-3xl md:text-4xl font-bold notoSerifBold text-slate-900 mb-4 tracking-tight special">Wealth Calculators</h1>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight special">Wealth Calculators</h1>
         </div>
 
         <div className="flex flex-wrap justify-center gap-2 mb-10">
@@ -161,17 +161,27 @@ const Calculators = () => {
         <div className="grid lg:grid-cols-3 gap-8 items-start">
           <div className="lg:col-span-2 bg-white p-8 rounded-3xl shadow-xl border border-slate-100 space-y-8">
             
-            {activeTab === 'sip-target' && (
-              <div className="mb-2">
-                <h2 className="text-2xl font-extrabold text-slate-900 mb-2">What Are You Planning For?</h2>
-                <p className="text-sm text-slate-500">Set your goal details and see how much you need to invest to achieve it.</p>
-              </div>
-            )}
-
             {activeTab === 'swp' && (
               <div className="flex bg-slate-100 p-1 rounded-xl w-fit">
                 <button onClick={() => setSwpMode('balance')} className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${swpMode === 'balance' ? 'bg-white text-black shadow-sm' : 'text-slate-400'}`}>Calculate Balance</button>
                 <button onClick={() => setSwpMode('withdrawal')} className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${swpMode === 'withdrawal' ? 'bg-white text-black shadow-sm' : 'text-slate-400'}`}>Calculate Withdrawal</button>
+              </div>
+            )}
+            
+            {activeTab === 'sip-target' && (
+              <div className="flex bg-slate-100 p-1 rounded-xl w-fit">
+                <button 
+                  onClick={() => setGoalMode('lumpsum')} 
+                  className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${goalMode === 'lumpsum' ? 'bg-white text-black shadow-sm' : 'text-slate-400'}`}
+                >
+                  Lumpsum Investment Required
+                </button>
+                <button 
+                  onClick={() => setGoalMode('sip')} 
+                  className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${goalMode === 'sip' ? 'bg-white text-black shadow-sm' : 'text-slate-400'}`}
+                >
+                  Monthly SIP Required
+                </button>
               </div>
             )}
 
@@ -183,8 +193,8 @@ const Calculators = () => {
               </>
             ) : (
               <>
-                {activeTab === 'sip-target' && <InputGroup label="Goal Amount" value={inputs.target} min={100000} max={100000000} step={100000} onChange={(v) => setInputs({...inputs, target: v})} />}
-                <InputGroup label={activeTab === 'sip-target' ? "Time Horizon" : "Investment Tenure"} value={inputs.tenure} min={1} max={40} step={1} onChange={(v) => setInputs({...inputs, tenure: v})} suffix="Yrs" />
+                {activeTab === 'sip-target' && <InputGroup label="Target Future Value" value={inputs.target} min={100000} max={100000000} step={100000} onChange={(v) => setInputs({...inputs, target: v})} />}
+                <InputGroup label="Investment Tenure" value={inputs.tenure} min={1} max={40} step={1} onChange={(v) => setInputs({...inputs, tenure: v})} suffix="Yrs" />
                 
                 {activeTab === 'lumpsum-sip' && (
                   <>
@@ -194,6 +204,7 @@ const Calculators = () => {
                   </>
                 )}
 
+                {/* SWP INPUTS SURGICALLY UPDATED: Monthly Withdrawal input is now always visible since both modes need it */}
                 {activeTab === 'swp' && (
                   <>
                     {swpMode === 'balance' && <InputGroup label="Lumpsum Investment" value={inputs.lumpsum} min={0} max={10000000} step={10000} onChange={(v) => setInputs({...inputs, lumpsum: v})} />}
@@ -206,56 +217,20 @@ const Calculators = () => {
                 {activeTab === 'sip-target' && goalMode === 'lumpsum' && (
                   <>
                     <InputGroup label="Monthly SIP Amount (Fixed)" value={inputs.sip} min={500} max={500000} step={500} onChange={(v) => setInputs({...inputs, sip: v})} />
-                    <InputGroup label="Expected SIP Returns (Per Annum)" value={inputs.rateSip} min={1} max={25} step={0.5} onChange={(v) => setInputs({...inputs, rateSip: v})} isPercent />
-                    <InputGroup label="Expected Lumpsum Returns (Per Annum)" value={inputs.rateLumpsum} min={1} max={25} step={0.5} onChange={(v) => setInputs({...inputs, rateLumpsum: v})} isPercent />
+                    <InputGroup label="Expected SIP Returns" value={inputs.rateSip} min={1} max={25} step={0.5} onChange={(v) => setInputs({...inputs, rateSip: v})} isPercent />
+                    <InputGroup label="Expected Lumpsum Returns" value={inputs.rateLumpsum} min={1} max={25} step={0.5} onChange={(v) => setInputs({...inputs, rateLumpsum: v})} isPercent />
                   </>
                 )}
                 {activeTab === 'sip-target' && goalMode === 'sip' && (
                   <>
                     <InputGroup label="Lumpsum Investment (Fixed)" value={inputs.lumpsum} min={10000} max={10000000} step={10000} onChange={(v) => setInputs({...inputs, lumpsum: v})} />
-                    <InputGroup label="Expected Lumpsum Returns (Per Annum)" value={inputs.rateLumpsum} min={1} max={25} step={0.5} onChange={(v) => setInputs({...inputs, rateLumpsum: v})} isPercent />
-                    <InputGroup label="Expected SIP Returns (Per Annum)" value={inputs.rateSip} min={1} max={25} step={0.5} onChange={(v) => setInputs({...inputs, rateSip: v})} isPercent />
+                    <InputGroup label="Expected Lumpsum Returns" value={inputs.rateLumpsum} min={1} max={25} step={0.5} onChange={(v) => setInputs({...inputs, rateLumpsum: v})} isPercent />
+                    <InputGroup label="Expected SIP Returns" value={inputs.rateSip} min={1} max={25} step={0.5} onChange={(v) => setInputs({...inputs, rateSip: v})} isPercent />
                   </>
                 )}
 
                 {activeTab === 'lumpsum-sip' && (
                   <InputGroup label="Annual Step-up" value={inputs.stepUp} min={0} max={50} step={1} onChange={(v) => setInputs({...inputs, stepUp: v})} isPercent isStepUp />
-                )}
-
-                {/* NEW GOAL PLANNER BOTTOM TOGGLES */}
-                {activeTab === 'sip-target' && (
-                  <div className="mt-8 pt-8 border-t border-slate-100">
-                    <div className="flex items-center gap-2 mb-4">
-                      <label className="text-sm font-bold text-slate-700">How Would You Like To Invest?</label>
-                      <div className="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] text-slate-400 font-bold">i</div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <button 
-                        onClick={() => setGoalMode('sip')} 
-                        className={`flex flex-col items-start justify-center p-4 rounded-xl border transition-all relative overflow-hidden ${goalMode === 'sip' ? 'border-[#fa9632] bg-[#fa9632] text-white shadow-md' : 'border-slate-200 bg-white text-slate-700 hover:border-[#fa9632]'}`}
-                      >
-                        <div className="flex items-center gap-3 mb-1">
-                          <PiggyBank className={`w-5 h-5 ${goalMode === 'sip' ? 'text-white' : 'text-slate-400'}`} />
-                          <span className="font-bold text-md">Monthly SIP</span>
-                        </div>
-                        <span className={`text-[11px] ml-8 ${goalMode === 'sip' ? 'text-white/90' : 'text-slate-500'}`}>Invest regularly over time</span>
-                      </button>
-                      
-                      <button 
-                        onClick={() => setGoalMode('lumpsum')} 
-                        className={`flex flex-col items-start justify-center p-4 rounded-xl border transition-all relative overflow-hidden ${goalMode === 'lumpsum' ? 'border-[#fa9632] bg-[#fa9632] text-white shadow-md' : 'border-slate-200 bg-white text-slate-700 hover:border-[#fa9632]'}`}
-                      >
-                        <div className="flex items-center gap-3 mb-1">
-                          <IndianRupee className={`w-5 h-5 ${goalMode === 'lumpsum' ? 'text-white' : 'text-slate-400'}`} />
-                          <span className="font-bold text-md">Lumpsum</span>
-                        </div>
-                        <span className={`text-[11px] ml-8 ${goalMode === 'lumpsum' ? 'text-white/90' : 'text-slate-500'}`}>Invest a one-time amount</span>
-                      </button>
-                    </div>
-                    <div className="mt-6 bg-[#fff8f0] border border-[#ffedd5] text-[#d97706] text-xs p-3 rounded-lg flex items-center gap-2">
-                      <span className="font-bold">✓</span> All calculations are estimates and for illustration purposes only.
-                    </div>
-                  </div>
                 )}
               </>
             )}
@@ -263,32 +238,20 @@ const Calculators = () => {
 
           <div className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden sticky top-24">
             <div className="bg-slate-900 p-8 text-center text-white">
-              
-              <h3 className="uppercase tracking-widest notoSerifRegular text-[14px] text-white mb-2">
+              {/* LABELS SURGICALLY UPDATED */}
+              <h3 className="font-bold uppercase tracking-widest text-[10px] text-slate-400 mb-2">
                 {activeTab === 'home-loan' ? 'Monthly EMI' : 
-                 (activeTab === 'sip-target' && goalMode === 'lumpsum') ? 'YOUR REQUIRED LUMPSUM' :
-                 (activeTab === 'sip-target' && goalMode === 'sip') ? 'YOUR REQUIRED MONTHLY SIP' : 
-                 (activeTab === 'swp' && swpMode === 'withdrawal') ? 'Monthly Withdrawal Possible' : 'Maturity Value'}
+                 (activeTab === 'sip-target' && goalMode === 'lumpsum') ? 'Lumpsum Investment Required' :
+                 (activeTab === 'sip-target' && goalMode === 'sip') ? 'Starting Monthly SIP Required' : 
+                 (activeTab === 'swp' && swpMode === 'withdrawal') ? 'Lumpsum Investment Required' : 'Maturity Value'}
               </h3>
-              
-              <div className="text-4xl font-black notoSerifBold text-[#fa9632] special">
+              <div className="text-3xl font-black text-[#fa9632] special">
                 ₹ {activeTab === 'home-loan' ? (result.emi || 0).toLocaleString('en-IN') : 
                    (activeTab === 'sip-target' && goalMode === 'lumpsum') ? (result.lumpsumRequired || 0).toLocaleString('en-IN') :
                    (activeTab === 'sip-target' && goalMode === 'sip') ? (result.sipRequired || 0).toLocaleString('en-IN') : 
                    (activeTab === 'swp' && swpMode === 'withdrawal') ? (result.swpRequired || 0).toLocaleString('en-IN') :
                    (result.fv || 0).toLocaleString('en-IN')}
               </div>
-
-              {activeTab === 'sip-target' && (
-                <p className="text-sm text-white opacity-90 font-medium mt-2">
-                  to reach your ₹ {(inputs.target || 0).toLocaleString('en-IN')} goal
-                </p>
-              )}
-              {activeTab === 'swp' && (
-                <p className="text-sm text-white opacity-90 font-medium mt-2">
-                  for {inputs.tenure || 0} year{inputs.tenure !== 1 ? 's' : ''}
-                </p>
-              )}
             </div>
             
             <div className="p-8">
@@ -298,41 +261,17 @@ const Calculators = () => {
                   <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#fa9632" strokeWidth="4" 
                     strokeDasharray={strokeDasharrayVal} strokeDashoffset="0"></circle>
                 </svg>
-                
-                {/* NEW DYNAMIC PIE CHART TEXT */}
                 <div className="absolute inset-0 flex items-center justify-center flex-col text-center">
-                   {activeTab === 'sip-target' && (
-                     <span className="text-[12px] font-medium text-slate-500 mb-1 leading-none">You're</span>
-                   )}
-                   <span className="text-3xl font-black text-slate-900 leading-none">{Math.round(percentageDisplay)}%</span>
-                   <span className="text-[11px] font-bold text-slate-500 mt-1 max-w-[90px] leading-tight">
-                     {activeTab === 'sip-target' ? 'on your way' : 
-                      activeTab === 'home-loan' ? 'Total Interest' : 
-                      'Additional Wealth Created'}
+                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                    {activeTab === 'sip-target' || (activeTab === 'swp' && swpMode === 'withdrawal') ? 'Left' : 'Gains Ratio'}
                    </span>
+                   <span className="text-lg font-black text-slate-900">{Math.round(percentageDisplay)}%</span>
                 </div>
               </div>
 
-              <div className="space-y-4 notoSerifRegular">
-                {/* NEW DYNAMIC LEGEND LABELS */}
-                <LegendRow 
-                  label={
-                    activeTab === 'home-loan' ? "Principal" : 
-                    activeTab === 'sip-target' ? "Total Invested" : 
-                    "Invested"
-                  } 
-                  value={investedValueDisplay} 
-                  color="bg-slate-200" 
-                />
-                <LegendRow 
-                  label={
-                    activeTab === 'home-loan' ? "Interest" : 
-                    activeTab === 'sip-target' ? "Estimated Wealth Gain" : 
-                    "Additional Wealth Created"
-                  } 
-                  value={gainsValueDisplay} 
-                  color="bg-[#fa9632]" 
-                />
+              <div className="space-y-4">
+                <LegendRow label={activeTab === 'home-loan' ? "Principal" : "Invested"} value={investedValueDisplay} color="bg-slate-200" />
+                <LegendRow label={activeTab === 'home-loan' ? "Interest" : "Wealth Gained"} value={gainsValueDisplay} color="bg-[#fa9632]" />
                 
                 <div className="pt-4 border-t border-slate-100">
                    <p className="text-[10px] text-slate-400 italic text-center mb-4">
@@ -351,10 +290,8 @@ const Calculators = () => {
 const InputGroup = ({ label, value, min, max, step, onChange, isPercent, isStepUp, suffix }) => (
   <div>
     <div className="flex justify-between mb-4 items-center">
-      <label className="text-m georgiaRegular font-bold text-slate-700 flex items-center gap-2 sans">
-        {label} 
-        <div className="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] text-slate-400 font-bold">i</div>
-        {isStepUp && <ArrowUpRight className="w-4 h-4 text-[#fa9632]" />}
+      <label className="text-sm font-bold text-slate-700 uppercase flex items-center gap-2 sans">
+        {label} {isStepUp && <ArrowUpRight className="w-4 h-4 text-[#fa9632]" />}
       </label>
       <div className="text-m flex bg-slate-100 px-3 py-2 rounded-lg text-black items-center border border-slate-200 focus-within:border-[#fa9632] transition-colors sans">
         {!isPercent && !suffix && <span className="mr-1 text-slate-400 sans">₹</span>}
@@ -366,7 +303,7 @@ const InputGroup = ({ label, value, min, max, step, onChange, isPercent, isStepU
             onChange(valInput === "" ? 0 : Number(valInput));
           }}
           placeholder="0"
-          className="bg-transparent w-24 text-right outline-none special_ special notoSerifRegular [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          className="bg-transparent w-24 text-right outline-none special_ special sans [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
         />
         {isPercent && <span className="ml-1 text-slate-400 sans">%</span>}
         {suffix && <span className="ml-1 text-slate-400 sans">{suffix}</span>}
@@ -378,12 +315,12 @@ const InputGroup = ({ label, value, min, max, step, onChange, isPercent, isStepU
 );
 
 const LegendRow = ({ label, value, color }) => (
-  <div className="flex justify-between items-center sans">
-    <div className="flex items-center gap-2">
-      <div className={`w-3 h-3 rounded-full ${color}`}></div>
-      <span className="text-m font-bold text-black special_">{label}</span>
+  <div className="flex justify-between items-center sans">?
+    <div className="flex items-center gap-2 sans">
+      <div className={`w-3 h-3 rounded-full ${color} sans`}></div>
+      <span className="text-sm font-medium text-slate-600 special_ sans">{label}</span>
     </div>
-    <span className="text-m font-bold text-black special_ sans">₹ {(value || 0).toLocaleString('en-IN')}</span>
+    <span className="text-sm font-bold text-slate-900 special_ sans">₹ {(value || 0).toLocaleString('en-IN')}</span>
   </div>
 );
 
