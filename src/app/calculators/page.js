@@ -404,7 +404,7 @@ const InputGroup = ({ label, value, min, max, step, onChange, isPercent, isStepU
       <div className="flex justify-between mb-4 items-center">
         <label className="text-m georgiaRegular font-bold text-slate-700 flex items-center gap-2 sans">
           {label} 
-          <div className="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] text-slate-400 font-bold">i</div>
+          {/* <div className="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] text-slate-400 font-bold">i</div> */}
           {isStepUp && <ArrowUpRight className="w-4 h-4 text-[#fa9632]" />}
         </label>
         <div className="text-m flex bg-slate-100 px-3 py-2 rounded-lg text-black items-center border border-slate-200 focus-within:border-[#fa9632] transition-colors sans">
