@@ -40,9 +40,9 @@ export default function AssetElixirHeader() {
 
         {/* Right Side: CTA Button */}
         <div>
-          <button className="bg-[#FACC15] text-black hover:bg-[#EAB308] px-6 py-4 rounded-2xl text-base font-bold tracking-normal transition duration-200 shadow-sm whitespace-nowrap">
-            Free Portfolio Check
-          </button>
+          <Link href='/financialcheck' className="bg-[#FACC15] text-black hover:bg-[#EAB308] px-6 py-4 rounded-2xl text-base font-bold tracking-normal transition duration-200 shadow-sm whitespace-nowrap">
+            Free Financial Check
+          </Link>
         </div>
 
       </div>

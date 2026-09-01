@@ -99,13 +99,13 @@ export default function ServicesPage() {
             Financial Decisions <span className='text-black'>Are Easier When <br/> You Don't Have To Make Them Alone</span>
           </span>
           
-          <p className="mt-5 text-[20px] sm:text-[24px] text-black/80 notoSerifRegular leading-relaxed">
+          <p className="mt-5 text-[20px]/7 sm:text-[24px]/7 text-black/80 notoSerifRegular leading-relaxed">
             Nobody wakes up excited to think about tax slabs or insurance premiums.
           </p>
-          <p className="text-[24px] sm:text-[24px] text-black/80 notoSerifRegular leading-relaxed">
+          <p className="text-[24px]/7 sm:text-[24px]/7 text-black/80 notoSerifRegular leading-relaxed">
             But most of what keeps you up at night—will I retire okay, am I paying off the right <br/>debt first, is my family covered if something happens to me—comes down to a plan.
           </p>
-          <p className="text-[24px] sm:text-[24px] text-black/80 notoSerifRegular leading-relaxed mb-8">
+          <p className="text-[24px]/7 sm:text-[24px]/7 text-black/80 notoSerifRegular leading-relaxed mb-8">
             That's what we build together, step by step, starting wherever you are right now.
           </p>
           <button className="bg-[#FACC15] text-black hover:bg-[#EAB308] px-8 py-4 rounded-full text-lg font-bold transition shadow-sm">

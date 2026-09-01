@@ -273,7 +273,7 @@ export default function AboutUsPage() {
             </div>
           </div>
 
-          <div className="space-y-6 text-base sm:text-lg lg:text-xl font-medium text-black/90 max-w-full leading-relaxed georgiaRegular">
+          <div className="text-center space-y-6 text-base sm:text-lg lg:text-xl font-medium text-black/90 max-w-full leading-relaxed georgiaRegular">
             <p>
               Financial planning has never been just about investments. It's about having someone who understands your goals, helps you navigate life's important financial decisions and gives you the confidence to move forward - whatever stage of life you're in.
             </p>

@@ -53,15 +53,15 @@ export default async function BlogPage({ searchParams }) {
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="text-center pt-24 pb-12 px-4 max-w-4xl mt-10 mx-auto">
-        <h3 className="text-[#fa8922] font-semibold text-lg mb-4 tracking-wide">
+        <h3 className="text-[#fa8922] font-semibold text-[30px] mb-4 tracking-wide">
           Blogs & Published Articles
         </h3>
-        <hr className='text-black'/>
+        <hr className="w-100 border-t-4 border-black mx-auto mb-6 rounded-full" />
         <h1 className="text-4xl notoSerifBold font-bold md:text-5xl font-bold mb-6 text-slate-900 leading-tight">
           Insights that help you plan better <br className="hidden md:block"/>
           <span className="text-[#fa8922]">& make better decisions.</span>
         </h1>
-        <p className="text-black georgiaRegular mb-8 max-w-3xl mx-auto text-lg leading-relaxed">
+        <p className="text-black georgiaRegular mb-8 max-w-3xl mx-auto text-[24px]/7 sm:text-[24px]/7 leading-relaxed">
           Practical insights on investing, financial planning, retirement and building long-term 
           wealth. Simple, practical and focused on the financial decisions that matter to you.
         </p>
@@ -143,7 +143,7 @@ export default async function BlogPage({ searchParams }) {
           Have A <span className="text-[#fa8922]">Financial Decision</span><br/>
           On Your Mind?
         </h2>
-        <p className="text-gray-600 mb-10 max-w-2xl mx-auto text-lg">
+        <p className="text-black mb-10 max-w-full mx-auto text-lg">
           Whether you're planning for the future, reviewing your investments, or simply looking for a second opinion, we're here to help you think it through.
         </p>
         <button className="bg-[#fa8922] text-white px-8 py-3 rounded-lg font-bold shadow-lg hover:bg-orange-600 transition-colors">

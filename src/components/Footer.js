@@ -18,12 +18,12 @@ export default function Footer() {
           <div className="md:col-span-2">
             <h5 className="text-sm font-black uppercase tracking-wider text-white mb-4">Links</h5>
             <ul className="space-y-2 text-sm">
-              <li><a href="#about" className="hover:text-yellow-400 transition">About Us</a></li>
-              <li><a href="#services" className="hover:text-yellow-400 transition">Services</a></li>
-              <li><a href="#insights" className="hover:text-yellow-400 transition">Financial Insights</a></li>
-              <li><a href="#calculators" className="hover:text-yellow-400 transition">Calculators</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition">Free Portfolio Review</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition">Book a Free Call</a></li>
+              <li><a href="#about"       className="hover:text-yellow-500 text-white text-m transition">About Us</a></li>
+              <li><a href="#services"    className="hover:text-yellow-500 text-white text-m transition">Services</a></li>
+              <li><a href="#insights"    className="hover:text-yellow-500 text-white text-m transition">Financial Insights</a></li>
+              <li><a href="#calculators" className="hover:text-yellow-500 text-white text-m transition">Calculators</a></li>
+              <li><a href="#"            className="hover:text-yellow-500 text-white text-m transition">Free Portfolio Review</a></li>
+              <li><a href="#"            className="hover:text-yellow-500 text-white text-m transition">Book a Free Call</a></li>
             </ul>
           </div>
 

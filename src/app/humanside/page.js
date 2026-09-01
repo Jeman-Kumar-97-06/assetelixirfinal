@@ -32,7 +32,7 @@ export default function HumanSidePage() {
             Explore the Human Side
           </span>
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-black notoSerifBold leading-tight mb-4">
-            Behind every <span className="text-[#ff8d00]">Financial Decision</span>, there is a story.
+            Behind every <span className="text-[#ff8d00]">Financial Decision,</span> there is a story.
           </h1>
           <p className="text-[24px] sm:text-[24px] text-black georgiaRegular max-w-7xl leading-relaxed mb-2">
             Money often becomes a reflection of the lives we lead, the responsibilities we carry, and the future we hope to create. These are some of the questions, concerns, and experiences that many people quietly carry through different stages of life.

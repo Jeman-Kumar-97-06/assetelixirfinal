@@ -65,7 +65,7 @@ export default function BlogControls({ currentFilter, currentSort, defaultSearch
             placeholder="Search articles..." 
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
-            className="placeholder-slate-500 w-full pl-4 pr-10 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#fa8922]"
+            className="placeholder-slate-800 text-black w-full pl-4 pr-10 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#fa8922]"
           />
           <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#fa8922]">
             <Search className="w-4 h-4" />

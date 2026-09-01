@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { 
   TrendingUp, Target, PiggyBank, IndianRupee, 
-  ArrowUpRight, Home, RefreshCw, ChevronRight 
+  ArrowUpRight, Home, RefreshCw, ChevronRight,
+  ShieldCheck, Calculator // Added missing icons for the bottom sections
 } from 'lucide-react';
 
 const Calculators = () => {
@@ -31,6 +32,7 @@ const Calculators = () => {
   });
 
   const calculateFinancials = () => {
+    // ... (Keep existing calculation logic exactly the same)[cite: 6]
     const annualRate = (inputs.rate || 0) / 100;
     const years = (inputs.tenure || 0);
     const months = years * 12;
@@ -174,6 +176,7 @@ const Calculators = () => {
               </>
             ) : (
               <>
+                {/* ... (Keep existing input fields exactly the same) ...[cite: 6] */}
                 {activeTab === 'sip-target' && <InputGroup label="Goal Amount" value={inputs.target} min={100000} max={100000000} step={100000} onChange={(v) => setInputs({...inputs, target: v})} />}
                 <InputGroup label={activeTab === 'sip-target' ? "Time Horizon" : "Investment Tenure"} value={inputs.tenure} min={1} max={40} step={1} onChange={(v) => setInputs({...inputs, tenure: v})} suffix="Yrs" />
                 
@@ -216,9 +219,10 @@ const Calculators = () => {
                 {/* NEW GOAL PLANNER BOTTOM TOGGLES */}
                 {activeTab === 'sip-target' && (
                   <div className="mt-8 pt-8 border-t border-slate-100">
+                     {/* ... (Keep existing goal planner toggles) ...[cite: 6] */}
                     <div className="flex items-center gap-2 mb-4">
-                      <label className="text-sm font-bold text-slate-700">How Would You Like To Invest?</label>
-                      <div className="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] text-slate-400 font-bold">i</div>
+                      <label className="text-m notoSerifBold font-bold text-black">How Would You Like To Invest?</label>
+                      {/* <div className="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] text-slate-400 font-bold">i</div> */}
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <button 
@@ -243,18 +247,16 @@ const Calculators = () => {
                         <span className={`text-[15px] ml-8 ${goalMode === 'lumpsum' ? 'text-white/90' : 'text-slate-500'}`}>Invest a one-time amount</span>
                       </button>
                     </div>
-                    <div className="mt-6 bg-[#fff8f0] border border-[#ffedd5] text-[#d97706] text-xs p-3 rounded-lg flex items-center gap-2">
-                      <span className="font-bold">✓</span> All calculations are estimates and for illustration purposes only.
-                    </div>
                   </div>
                 )}
 
                 {/* NEW MONTHLY SWP BOTTOM TOGGLES */}
                 {activeTab === 'swp' && (
                   <div className="mt-8 pt-8 border-t border-slate-100">
+                    {/* ... (Keep existing swp toggles) ...[cite: 6] */}
                     <div className="flex items-center gap-2 mb-4">
-                      <label className="text-sm font-bold text-slate-700">What Would You Like To Calculate?</label>
-                      <div className="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] text-slate-400 font-bold">i</div>
+                      <label className="text-m notoSerifBold font-bold text-black">What Would You Like To Calculate?</label>
+                      {/* <div className="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] text-slate-400 font-bold">i</div> */}
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <button 
@@ -279,23 +281,31 @@ const Calculators = () => {
                         <span className={`text-[15px] ml-8 ${swpMode === 'withdrawal' ? 'text-white/90' : 'text-slate-500'}`}>Find monthly withdrawal</span>
                       </button>
                     </div>
-                    <div className="mt-6 bg-[#fff8f0] border border-[#ffedd5] text-[#d97706] text-xs p-3 rounded-lg flex items-center gap-2">
-                      <span className="font-bold">✓</span> All calculations are estimates and for illustration purposes only.
-                    </div>
                   </div>
                 )}
               </>
             )}
+
+            {/* ELEMENT 1 (Left Side): Missing Disclaimer Box Added Here */}
+            <div className="mt-8 bg-[#fff8f0] p-4 rounded-xl flex items-center gap-3 border border-[#ffedd5]">
+              <ShieldCheck className="w-6 h-6 text-[#fa9632] shrink-0" />
+              <div className="text-m">
+                <span className="font-bold notoSerifBold text-black">These are estimated values based on the inputs provided.</span><br/>
+                <span className="text-black georgiaRegular">Actual results may vary with market performance.</span>
+              </div>
+            </div>
+
           </div>
 
           <div className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden sticky top-24">
             <div className="bg-slate-900 p-8 text-center text-white">
               
               <h3 className="uppercase tracking-widest notoSerifRegular text-[14px] text-white mb-2">
+                {/* Changed "Maturity Value" to "CORPUS VALUE" as requested[cite: 6] */}
                 {activeTab === 'home-loan' ? 'Monthly EMI' : 
                  (activeTab === 'sip-target' && goalMode === 'lumpsum') ? 'YOUR REQUIRED LUMPSUM' :
                  (activeTab === 'sip-target' && goalMode === 'sip') ? 'YOUR REQUIRED MONTHLY SIP' : 
-                 (activeTab === 'swp' && swpMode === 'withdrawal') ? 'Monthly Withdrawal Possible' : 'Maturity Value'}
+                 (activeTab === 'swp' && swpMode === 'withdrawal') ? 'Monthly Withdrawal Possible' : 'CORPUS VALUE'}
               </h3>
               
               <div className="text-4xl font-black notoSerifBold text-[#fa9632] special">
@@ -326,7 +336,6 @@ const Calculators = () => {
                     strokeDasharray={strokeDasharrayVal} strokeDashoffset="0"></circle>
                 </svg>
                 
-                {/* NEW DYNAMIC PIE CHART TEXT */}
                 <div className="absolute inset-0 flex items-center justify-center flex-col text-center">
                    {activeTab === 'sip-target' && (
                      <span className="text-[12px] font-medium text-slate-500 mb-1 leading-none">You're</span>
@@ -341,7 +350,6 @@ const Calculators = () => {
               </div>
 
               <div className="space-y-4 notoSerifRegular">
-                {/* NEW DYNAMIC LEGEND LABELS */}
                 <LegendRow 
                   label={
                     activeTab === 'home-loan' ? "Principal" : 
@@ -362,11 +370,18 @@ const Calculators = () => {
                 />
                 
                 <div className="pt-4 border-t border-slate-100">
-                   <p className="text-[10px] text-slate-400 italic text-center mb-4">
-                     "Earn with ethics. Grow with discipline. Build with purpose."
-                   </p>
+                   {/* This was removed and replaced with ELEMENT 2 as per the screenshot design */}
                 </div>
               </div>
+
+              {/* ELEMENT 2 (Right Side): Missing Call To Action Box Added Here */}
+              <div className="mt-4 bg-[#fff8f0] p-4 rounded-xl flex items-center gap-4">
+                <Calculator className="w-8 h-8 text-[#fa9632] shrink-0" />
+                <span className="font-bold text-slate-800 text-lg leading-tight">
+                  Plan today,<br/>achieve tomorrow.
+                </span>
+              </div>
+
             </div>
           </div>
         </div>
@@ -375,36 +390,55 @@ const Calculators = () => {
   );
 };
 
-const InputGroup = ({ label, value, min, max, step, onChange, isPercent, isStepUp, suffix }) => (
-  <div>
-    <div className="flex justify-between mb-4 items-center">
-      <label className="text-m georgiaRegular font-bold text-slate-700 flex items-center gap-2 sans">
-        {label} 
-        <div className="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] text-slate-400 font-bold">i</div>
-        {isStepUp && <ArrowUpRight className="w-4 h-4 text-[#fa9632]" />}
-      </label>
-      <div className="text-m flex bg-slate-100 px-3 py-2 rounded-lg text-black items-center border border-slate-200 focus-within:border-[#fa9632] transition-colors sans">
-        {!isPercent && !suffix && <span className="mr-1 text-slate-400 sans">₹</span>}
-        <input 
-          type="number"
-          value={value === 0 ? "" : value} 
-          onChange={(e) => {
-            const valInput = e.target.value;
-            onChange(valInput === "" ? 0 : Number(valInput));
-          }}
-          placeholder="0"
-          className="bg-transparent w-24 text-right outline-none special_ special notoSerifRegular [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-        />
-        {isPercent && <span className="ml-1 text-slate-400 sans">%</span>}
-        {suffix && <span className="ml-1 text-slate-400 sans">{suffix}</span>}
+const InputGroup = ({ label, value, min, max, step, onChange, isPercent, isStepUp, suffix }) => {
+  // Calculate the filled percentage for the custom range track
+  const safeValue = value || 0;
+  const percentage = ((safeValue - min) / (max - min)) * 100;
+  
+  const trackStyle = {
+    background: `linear-gradient(to right, #fa9632 0%, #fa9632 ${percentage}%, #e2e8f0 ${percentage}%, #e2e8f0 100%)`
+  };
+
+  return (
+    <div>
+      <div className="flex justify-between mb-4 items-center">
+        <label className="text-m georgiaRegular font-bold text-slate-700 flex items-center gap-2 sans">
+          {label} 
+          <div className="w-4 h-4 rounded-full border border-slate-300 flex items-center justify-center text-[10px] text-slate-400 font-bold">i</div>
+          {isStepUp && <ArrowUpRight className="w-4 h-4 text-[#fa9632]" />}
+        </label>
+        <div className="text-m flex bg-slate-100 px-3 py-2 rounded-lg text-black items-center border border-slate-200 focus-within:border-[#fa9632] transition-colors sans">
+          {!isPercent && !suffix && <span className="mr-1 text-slate-400 sans">₹</span>}
+          <input 
+            type="number"
+            value={value === 0 ? "" : value} 
+            onChange={(e) => {
+              const valInput = e.target.value;
+              onChange(valInput === "" ? 0 : Number(valInput));
+            }}
+            placeholder="0"
+            className="bg-transparent w-24 text-right outline-none special_ special notoSerifRegular [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          />
+          {isPercent && <span className="ml-1 text-slate-400 sans">%</span>}
+          {suffix && <span className="ml-1 text-slate-400 sans">{suffix}</span>}
+        </div>
       </div>
+      <input 
+        type="range" 
+        min={min} 
+        max={max} 
+        step={step} 
+        value={safeValue} 
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="special w-full h-2 rounded-lg appearance-none cursor-pointer accent-[#fa9632]" 
+        style={trackStyle}
+      />
     </div>
-    <input type="range" min={min} max={max} step={step} value={value || 0} onChange={(e) => onChange(Number(e.target.value))}
-      className="special w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#fa9632]" />
-  </div>
-);
+  );
+};
 
 const LegendRow = ({ label, value, color }) => (
+  // ... (Keep existing LegendRow component exactly the same)[cite: 6]
   <div className="flex justify-between items-center sans">
     <div className="flex items-center gap-2">
       <div className={`w-3 h-3 rounded-full ${color}`}></div>
