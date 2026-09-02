@@ -366,7 +366,7 @@ export default function Home() {
 
   </div>
 </section>
-      <section id="human-side" className="py-24 bg-[#f4f4f4]w-full">
+      <section id="human-side" className="py-1 bg-[#f4f4f4]w-full">
         {/* border-b-2 border-black */}
   <div className="w-full px-2 sm:px-6 lg:px-10 xl:px-15">
     
@@ -661,7 +661,7 @@ export default function Home() {
         <div className="w-full px-2 sm:px-6 lg:px-10 xl:px-15">
           
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-black leading-tight max-w-2xl">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl notoSerifBold font-black tracking-tight text-black leading-tight max-w-2xl">
               Ready to find your <br />Financial elixir?
             </h2>
             <div className="shrink-0">
@@ -671,7 +671,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="space-y-6 text-base sm:text-lg lg:text-xl font-medium text-black/90 max-w-6xl leading-relaxed">
+          <div className="space-y-6 text-base sm:text-lg lg:text-xl font-medium text-black/90 max-w-full leading-relaxed">
             <p>
               Wherever you are in life, a thoughtful conversation about your goals, your responsibilities, and the future you want to build is always a good place to start. We would love to be part of that journey with you.
             </p>

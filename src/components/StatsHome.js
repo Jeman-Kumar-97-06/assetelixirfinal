@@ -4,9 +4,9 @@ import CountUp from './CountUp'; // Adjust this import path to your project layo
 
 export default function StatsIndicatorBar() {
   return (
-    <div className="w-full bg-[#fcf6ee] border-y border-black/10 py-14 left-0 right-0">
+    <div className="w-full bg-[#fcf6ee] border-y border-black py-14 left-0 right-0">
       <div className="w-full px-4 sm:px-12 lg:px-20 xl:px-32">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 md:gap-0 md:divide-x md:divide-black text-black">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 md:gap-0 md:divide-x-4 md:divide-black text-black">
           
           {/* Stat 1 */}
           <div className="flex flex-col justify-center items-start md:pl-8">
