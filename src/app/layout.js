@@ -39,7 +39,8 @@ const quotesCurved   = localFont({
   display: 'swap',
 })
 
-const mB             = Montserrat({
+const mB             = localFont({
+  src: "./fonts/Montserrat-Bold.woff",
   variable: '--font-mb',          // Variable name for Tailwind
   display: 'swap',
 })
