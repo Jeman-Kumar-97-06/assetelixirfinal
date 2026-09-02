@@ -167,21 +167,6 @@ export default function Home() {
               <h3 className="mbb text-[#FACC15] text-[90px] lg:text-[120px] font-black capitalize tracking-tight drop-shadow-md">Asset Elixir</h3>
             </div>
           </div>
-          {/* <div className="lg:col-span-6 w-full relative h-[600px] lg:h-auto min-h-[550px]">
-            <img 
-              src={Profile} 
-              alt="Shivam Pathak - The person behind Asset Elixir"
-              className="w-full h-full object-cover object-center absolute inset-0"
-            />
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden sm:flex flex-col items-center text-center w-full max-w-max pointer-events-none">
-              <p className="text-white sm:text-[35px] md:text-[40px] lg:text-[40px] xl:text-[50px] 2xl:text-[60px] font-light  drop-shadow-md notoSerifRegular">
-              The person behind
-              </p>
-              <h3 className="text-[#FACC15] text-[90px] lg:text-[120px] font-black capitalize tracking-tight drop-shadow-md mbb leading-none">
-              Asset Elixir
-              </h3>
-            </div>
-          </div> */}
 
           <div className="lg:col-span-5 text-black flex flex-col justify-between pt-20 pb-0 px-4 sm:pl-16 sm:pr-12 lg:pl-16 lg:pr-16 xl:pl-20 xl:pr-24">
             
@@ -231,7 +216,7 @@ export default function Home() {
       <StatsIndicatorBar/>
       
       {/* 4. SERVICES SECTION */}
-      <section id="services" className="py-24 bg-white  w-full"> {/* border-b-2 border-black */}
+      <section id="services" className="py-15 bg-white  w-full"> {/* border-b-2 border-black */}
         <div className="w-full px-2 sm:px-6 lg:px-5 xl:px-10">
           <div className="mb-16 max-w-full">
             <span className="text-[#FA9632] notoSerifRegular inline-block rounded-[2rem] py-1 text-xl mb-1">
