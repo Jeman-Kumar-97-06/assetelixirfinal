@@ -1,6 +1,7 @@
 import localFont from 'next/font/local';
 import "./globals.css";
 import AssetElixirHeader from "@/components/Navbar";
+import {Montserrat} from 'next/font/google';
 
 const georgiaRegular = localFont({
   src: './fonts/georgia.woff',
@@ -38,8 +39,7 @@ const quotesCurved   = localFont({
   display: 'swap',
 })
 
-const mB             = localFont({
-  src: "./fonts/Montserrat-Bold.woff",
+const mB             = Montserrat({
   variable: '--font-mb',          // Variable name for Tailwind
   display: 'swap',
 })

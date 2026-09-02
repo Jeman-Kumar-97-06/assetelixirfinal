@@ -52,7 +52,7 @@ export default async function BlogPage({ searchParams }) {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="text-center pt-24 pb-12 px-4 max-w-4xl mt-10 mx-auto">
+      <section className="text-center pt-24 pb-12 px-4 max-w-4xl mt-7 mx-auto">
         <h3 className="text-[#fa8922] font-semibold text-[30px] mb-4 tracking-wide">
           Blogs & Published Articles
         </h3>

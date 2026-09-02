@@ -28,25 +28,29 @@ body {
 }
 
 .georgiaItalic{
-  font-family: "--font-georgia_italic";
+  font-family: var(--font-georgia_italic);
 }
 
 .georgiaBold{
-  font-family: "--font-georgia_bold";
+  font-family: var(--font-georgia_bold);
 }
 
 .georgiaRegular{
-  font-family: "--font-georgia_reg";
+  font-family: var(--font-georgia_reg);
 }
 
 .notoSerifRegular{
-  font-family: "--font-noto_reg";
+  font-family: var(--font-noto_reg);
 }
 
 .notoSerifBold{
-  font-family: "--font-noto_bold";
+  font-family: var(--font-noto_bold);
 }
 
 .quotesCurved{
-  font-family: "--font-vic";
+  font-family: var(--font-vic);
+}
+
+.mbb{
+  font-family: var(--font-mb);
 }

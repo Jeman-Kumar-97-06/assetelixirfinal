@@ -164,7 +164,7 @@ export default function Home() {
             />
             <div className="absolute bottom-8 left-8 sm:left-8 lg:left-8 xl:left-8 z-10 hidden sm:block pointer-events-none">
               <p className="text-white text-base/7 sm:text-[20px] md:text-[20px] lg:text-[30px] xl:text-[40px] 2xl:text-[50px] font-light drop-shadow-md notoSerifRegular">The person behind</p>
-              <h3 className="text-[#FACC15] text-[90px] lg:text-[120px] font-black capitalize tracking-tight drop-shadow-md mbb">Asset Elixir</h3>
+              <h3 className="mbb text-[#FACC15] text-[90px] lg:text-[120px] font-black capitalize tracking-tight drop-shadow-md">Asset Elixir</h3>
             </div>
           </div>
           {/* <div className="lg:col-span-6 w-full relative h-[600px] lg:h-auto min-h-[550px]">
@@ -396,7 +396,7 @@ export default function Home() {
             <h3 className="text-lg sm:text-xl font-black font-serif mb-2 tracking-wide">
               I Still Regret That Financial Decision. How Do I Move Forward?
             </h3>
-            <p className="text-xs sm:text-sm text-white/80 leading-relaxed notoSerifRegular">
+            <p className="text-[15px] sm:text-[18px] text-white/80 leading-relaxed notoSerifRegular">
               A bad investment, delayed decisions, or missed opportunities can leave emotional scars that last far longer than the financial loss itself.  
             </p>
           </div>
@@ -411,10 +411,10 @@ export default function Home() {
           >
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
             <div className="relative z-10">
-              <h3 className="text-base sm:text-lg font-black font-serif mb-1 tracking-wide">
+              <h3 className="text-lg sm:text-xl font-black font-serif mb-1 tracking-wide">
                 I Don't Want to Depend on Anyone in Old Age.
               </h3>
-              <p className="text-xs text-white/70 leading-normal notoSerifRegular line-clamp-2">
+              <p className="text-[15px] sm:text-[18px] text-white/70 leading-normal notoSerifRegular line-clamp-2">
                 Financial dependence in old age doesn't arrive suddenly — it arrives slowly, through every year a plan was postponed.
               </p>
             </div>
@@ -427,10 +427,10 @@ export default function Home() {
           >
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
             <div className="relative z-10">
-              <h3 className="text-base sm:text-lg font-black font-serif mb-1 tracking-wide">
+              <h3 className="text-lg sm:text-xl font-black font-serif mb-1 tracking-wide">
                 I Lost Everything Once. Can I Rebuild My Life Again?
               </h3>
-              <p className="text-xs text-white/70 leading-normal notoSerifRegular line-clamp-2">
+              <p className="text-[15px] sm:text-[18px] text-white/70 leading-normal notoSerifRegular line-clamp-2">
                 Losing it all doesn't just empty a bank account — it can quietly convince a person that starting over is no longer possible for them.  
               </p>
             </div>
@@ -449,10 +449,10 @@ export default function Home() {
         >
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
           <div className="relative z-10">
-            <h3 className="text-base sm:text-lg font-black font-serif mb-1 tracking-wide">
+            <h3 className="text-lg sm:text-xl font-black font-serif mb-1 tracking-wide">
               I Earn Well. Why Does Money Still Feel Tight?
             </h3>
-            <p className="text-xs text-white/70 leading-normal notoSerifRegular line-clamp-2">
+            <p className="text-[15px] sm:text-[18px] text-white/70 leading-normal notoSerifRegular line-clamp-2">
               Earning more without a structure in place doesn't solve the problem - it just makes the gap between income and peace feel more confusing.                    
             </p>
           </div>
@@ -465,10 +465,10 @@ export default function Home() {
         >
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
           <div className="relative z-10">
-            <h3 className="text-base sm:text-lg font-black font-serif mb-1 tracking-wide">
+            <h3 className="text-lg sm:text-xl font-black font-serif mb-1 tracking-wide">
               I've Always Managed Everything Alone. What Happens If I Am Not There?
             </h3>
-            <p className="text-xs text-white/70 leading-normal notoSerifRegular line-clamp-2">
+            <p className="text-[15px] sm:text-[18px] text-white/70 leading-normal notoSerifRegular line-clamp-2">
               Being the strong one for everyone else can mean being the one person whose own future was never fully planned for. 
             </p>
           </div>
