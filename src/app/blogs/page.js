@@ -6,6 +6,7 @@ import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import BlogControls from './BlogControls';
 import Pagination from '@/components/Pagination';
 import Footer from '@/components/Footer';
+import AdminBlogControls from '@/components/AdminBlogControls';
 
 export default async function BlogPage({ searchParams }) {
   const params = await searchParams;
@@ -128,6 +129,8 @@ export default async function BlogPage({ searchParams }) {
                   <Link href={`/blogs/${blog._id}`} className="inline-flex items-center gap-2 text-[#fa8922] font-semibold text-sm hover:gap-3 transition-all">
                     Read Article <ArrowRight className="w-4 h-4" />
                   </Link>
+                  {/* <AdminBlogControls blogId={`${blog._id}`}/> */}
+                  <AdminBlogControls blogId={blog.id}/>
                 </div>
               </div>
             </article>

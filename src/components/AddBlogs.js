@@ -1,16 +1,14 @@
+// src/components/AddBlogs.jsx
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // Added useEffect
 import { ImagePlus, Type, AlignLeft, Send, X, CheckCircle, Eye, Tag } from 'lucide-react';
 import { useAuthContext } from '@/hooks/useAuthContext';
 import { useBlogContext } from '@/hooks/useBlogContext';
-// import { useNavigate } from 'react-router-dom';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation'; // Corrected from next/router[cite: 24]
 
 const AddBlogPost = () => {
-  // Categories should match the ones in your Blog.jsx filters
   const categories = ["Getting Started", "Financial Planning", "Investments", "Retirement", "Protection", "Tax", "Lessons of Life", "Mistakes to Avoid", "Market Insights"];
 
-  // FIX: Using empty strings instead of null prevents React "controlled input" console warnings
   const [title, setTitle]               = useState("");
   const [category, setCategory]         = useState(categories[0]);
   const [content, setContent]           = useState("");
@@ -21,10 +19,30 @@ const AddBlogPost = () => {
   const [error, setError]               = useState(null);
   const [submitted, setSubmitted]       = useState(false);
 
-  const {user}                          = useAuthContext();
-  const {blogs, all_blogs, dispatch}    = useBlogContext();
+  const { user } = useAuthContext();
+  const { dispatch } = useBlogContext();
+  const router = useRouter(); // Added router for redirection
 
-  const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:4000";
+  // The Bouncer: Kicks out unauthenticated users
+  useEffect(() => {
+    const isLogged = localStorage.getItem('asstUsr');
+    if (!isLogged && !user) {
+      router.push('/4938574-admin-login'); 
+    }
+  }, [user, router]);
+
+  // The Blackout Screen: Prevents UI flash during redirect
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <p className="font-bold text-slate-400 uppercase tracking-widest text-xs">
+          Verifying Credentials...
+        </p>
+      </div>
+    );
+  }
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"; // Updated from import.meta.env[cite: 24]
 
   const handleBlogSubmit = async (e) => {
     e.preventDefault();
@@ -45,17 +63,16 @@ const AddBlogPost = () => {
 
     try {
       const formData = new FormData();
-      
       formData.append("title", title);
       formData.append("tags", category);
-      formData.append("blogContent", content); // Saves raw formatting syntax to the DB safely
+      formData.append("blogContent", content);
       if (image) formData.append('blog_pic', image);
       
       const resp = await fetch(`/api/blogs`,{
         method:"POST",
         body:formData,
         headers:{"Authorization":`Bearer ${user.token}`}
-      })
+      });
 
       const json = await resp.json();
 
@@ -64,7 +81,6 @@ const AddBlogPost = () => {
       } else {
         dispatch({type:"ADD_BLOG",payload:json});
         setSubmitted(true);
-        // navigate('/',{replace:true});
       }
     } catch (err) {
       console.error("Submission Error: ",err);
@@ -74,52 +90,31 @@ const AddBlogPost = () => {
     }
   }
 
-  // UPDATED: Converts both {...} to bold and ('text', 'url') to custom anchor tags
   const parseInlineElements = (text) => {
     if (!text) return "";
-    
-    // Splits by matching either {...} blocks OR (...) blocks sequentially
     const parts = text.split(/(\{.*?\}|\(.*?\))/g);
     
     return parts.map((part, i) => {
-      // 1. Handle Bold Blocks: {bold text}
       if (part.startsWith('{') && part.endsWith('}')) {
         const innerText = part.slice(1, -1).trim();
-        return (
-          <strong key={i} className="font-black text-slate-900 mx-0.5">
-            {innerText}
-          </strong>
-        );
+        return <strong key={i} className="font-black text-slate-900 mx-0.5">{innerText}</strong>;
       }
       
-      // 2. Handle Link Tuples: ('Label', 'https://link.com')
       if (part.startsWith('(') && part.endsWith(')')) {
         const innerContent = part.slice(1, -1);
         const commaIndex = innerContent.indexOf(',');
         
         if (commaIndex !== -1) {
-          const labelRaw = innerContent.substring(0, commaIndex);
-          const urlRaw = innerContent.substring(commaIndex + 1);
-          
-          // Clean out leading/trailing whitespaces and Python style single/double quotes
-          const label = labelRaw.trim().replace(/^['"]|['"]$/g, '');
-          const url = urlRaw.trim().replace(/^['"]|['"]$/g, '');
+          const label = innerContent.substring(0, commaIndex).trim().replace(/^['"]|['"]$/g, '');
+          const url = innerContent.substring(commaIndex + 1).trim().replace(/^['"]|['"]$/g, '');
           
           return (
-            <a 
-              key={i} 
-              href={url} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-[#fa9632] font-bold hover:underline mx-0.5 transitions-all"
-            >
+            <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="text-[#fa9632] font-bold hover:underline mx-0.5 transitions-all">
               {label}
             </a>
           );
         }
       }
-      
-      // 3. Normal Text Segment
       return part;
     });
   };
@@ -130,43 +125,21 @@ const AddBlogPost = () => {
     return content.split('\n').map((line, index) => {
       const trimmedLine = line.trim();
 
-      // 1. Check for Sub-sub-heading (##)
       if (trimmedLine.startsWith('##')) {
-        const cleanText = trimmedLine.replace('##', '').trim();
-        return (
-          <h2 key={index} className="text-xl font-bold text-slate-800 mt-5 mb-3 tracking-tight">
-            {parseInlineElements(cleanText)}
-          </h2>
-        );
+        return <h2 key={index} className="text-xl font-bold text-slate-800 mt-5 mb-3 tracking-tight">{parseInlineElements(trimmedLine.replace('##', '').trim())}</h2>;
       }
-      
-      // 2. Check for Sub-heading (#)
       if (trimmedLine.startsWith('#')) {
-        const cleanText = trimmedLine.replace('#', '').trim();
-        return (
-          <h1 key={index} className="text-3xl font-black text-[#fa9632] mt-6 mb-4 tracking-tight">
-            {parseInlineElements(cleanText)}
-          </h1>
-        );
+        return <h1 key={index} className="text-3xl font-black text-[#fa9632] mt-6 mb-4 tracking-tight">{parseInlineElements(trimmedLine.replace('#', '').trim())}</h1>;
       }
-
-      // 3. Check for Unordered List Item ([...])
       if (trimmedLine.startsWith('[')) {
-        const cleanText = trimmedLine.replace(/^\[|\]$/g, '').trim();
         return (
           <div key={index} className="flex items-start gap-3 text-slate-600 leading-relaxed mb-2 pl-4">
             <span className="text-[#fa9632] font-black text-lg leading-none select-none">•</span>
-            <span className="flex-1">{parseInlineElements(cleanText)}</span>
+            <span className="flex-1">{parseInlineElements(trimmedLine.replace(/^\[|\]$/g, '').trim())}</span>
           </div>
         );
       }
-
-      // 4. Default Paragraph Text
-      return (
-        <p key={index} className="text-slate-600 leading-relaxed mb-4">
-          {parseInlineElements(line)}
-        </p>
-      );
+      return <p key={index} className="text-slate-600 leading-relaxed mb-4">{parseInlineElements(line)}</p>;
     });
   };
 
@@ -194,50 +167,24 @@ const AddBlogPost = () => {
 
         <div className="grid lg:grid-cols-2 gap-10">
           
-          {/* LEFT: Input Form */}
           <form onSubmit={handleBlogSubmit} className="space-y-6 bg-white p-8 rounded-[2rem] shadow-xl border border-slate-100">
-            
-            {/* Title */}
             <div className="space-y-2">
               <label className="text-xs font-black uppercase tracking-widest text-slate-400">Post Title</label>
-              <input 
-                type="text"
-                required
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-6 py-4 text-slate-900 font-bold focus:ring-2 focus:ring-[#fa9632] outline-none"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
+              <input type="text" required className="w-full bg-slate-50 border border-slate-200 rounded-xl px-6 py-4 text-slate-900 font-bold focus:ring-2 focus:ring-[#fa9632] outline-none" value={title} onChange={(e) => setTitle(e.target.value)} />
             </div>
 
-            {/* Category Dropdown */}
             <div className="space-y-2">
-              <label className="text-xs font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
-                <Tag className="w-3 h-3" /> Select Category
-              </label>
-              <select 
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-6 py-4 text-slate-900 font-bold focus:ring-2 focus:ring-[#fa9632] outline-none appearance-none cursor-pointer"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                {categories.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
+              <label className="text-xs font-black uppercase tracking-widest text-slate-400 flex items-center gap-2"><Tag className="w-3 h-3" /> Select Category</label>
+              <select className="w-full bg-slate-50 border border-slate-200 rounded-xl px-6 py-4 text-slate-900 font-bold focus:ring-2 focus:ring-[#fa9632] outline-none appearance-none cursor-pointer" value={category} onChange={(e) => setCategory(e.target.value)}>
+                {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
               </select>
             </div>
 
-            {/* Content */}
             <div className="space-y-2">
               <label className="text-xs font-black uppercase tracking-widest text-slate-400">Content</label>
-              <textarea 
-                required
-                rows="8"
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-6 py-4 text-slate-700 leading-relaxed focus:ring-2 focus:ring-[#fa9632] outline-none font-mono text-sm"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-              />
+              <textarea required rows="8" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-6 py-4 text-slate-700 leading-relaxed focus:ring-2 focus:ring-[#fa9632] outline-none font-mono text-sm" value={content} onChange={(e) => setContent(e.target.value)} />
             </div>
 
-            {/* Image */}
             <div className="space-y-2">
               <label className="text-xs font-black uppercase tracking-widest text-slate-400">Cover Image</label>
               <label className="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-slate-200 rounded-2xl cursor-pointer hover:bg-slate-50">
@@ -253,7 +200,6 @@ const AddBlogPost = () => {
             {error && <span className='text-red-500 text-sm block mt-2'>{error}</span>}
           </form>
 
-          {/* RIGHT: Live Preview */}
           <div className="bg-white p-8 md:p-12 rounded-[2rem] shadow-xl border border-slate-100 min-h-[600px]">
             <div className="flex items-center gap-2 text-slate-400 mb-8 border-b border-slate-50 pb-4">
               <Eye className="w-4 h-4" />
@@ -264,7 +210,6 @@ const AddBlogPost = () => {
               <img src={imagePreview} alt="Header" className="w-full h-48 object-cover rounded-2xl mb-6 shadow-lg" />
             )}
 
-            {/* Category Badge in Preview */}
             <span className="inline-block bg-black text-[#fa9632] text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest mb-4 border border-[#fa9632]">
               {category}
             </span>
@@ -277,7 +222,6 @@ const AddBlogPost = () => {
               {content ? renderPreview() : <p className="text-slate-300">Awaiting content...</p>}
             </div>
           </div>
-
         </div>
       </div>
     </div>

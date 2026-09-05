@@ -1,4 +1,3 @@
-// src/app/api/blogs/route.js
 import { NextResponse } from 'next/server';
 import Blog from '@/models/blogModel';
 import jwt from 'jsonwebtoken';
@@ -13,7 +12,7 @@ cloudinary.config({
 
 export async function POST(req) {
     try {
-        await mongoose.connect(process.env.MONGOURL);
+        await mongoose.connect(process.env.MONGODB_URI);
 
         // 1. JWT Authentication extraction (replacing requireAuth.js[cite: 14])
         const authHeader = req.headers.get('authorization');

@@ -1,23 +1,23 @@
-// src/hooks/useLogin.jsx
+// src/hooks/useSignup.jsx
 "use client";
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 import { useRouter } from "next/navigation";
 
-export const useLogin = () => {
+export const useSignup = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const { dispatch } = useAuthContext();
     const router = useRouter();
 
-    const login = async (username, password) => {
+    const signup = async (name, password) => {
         setIsLoading(true);
         setError(null);
         
-        const resp = await fetch(`/api/users/login`, {
-            method: 'POST',
-            headers: { "Content-Type": 'application/json' },
-            body: JSON.stringify({ name: username, password: password })
+        const resp = await fetch(`/api/users/signup`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, password })
         });
         
         const json = await resp.json();
@@ -29,10 +29,9 @@ export const useLogin = () => {
             localStorage.setItem('asstUsr', JSON.stringify(json));
             dispatch({ type: "LOGIN", payload: json });
             setIsLoading(false);
-            setError(null);
             router.push('/add-blog'); // Redirect to dashboard
         }
-    };
-
-    return { login, error, isLoading };
-};
+    }
+    
+    return { signup, error, isLoading };
+}
