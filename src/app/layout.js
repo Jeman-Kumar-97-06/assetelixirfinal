@@ -2,6 +2,8 @@ import localFont from 'next/font/local';
 import "./globals.css";
 import AssetElixirHeader from "@/components/Navbar";
 import {Montserrat} from 'next/font/google';
+import { AuthContextProvider } from '@/context/AuthContext';
+import { BlogContextProvider } from '@/context/BlogContext';
 
 const georgiaRegular = localFont({
   src: './fonts/georgia.woff',
@@ -65,8 +67,12 @@ export default function RootLayout({ children }) {
                 `}
     >
       <body className="min-h-full flex flex-col">
-        <AssetElixirHeader/>
-        {children}
+        <AuthContextProvider>
+          <BlogContextProvider>
+            <AssetElixirHeader/>
+            {children}
+          </BlogContextProvider>
+        </AuthContextProvider>
         </body>
     </html>
   );

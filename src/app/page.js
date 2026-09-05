@@ -132,8 +132,7 @@ export default function Home() {
     <div className="absolute inset-0 bg-white/5 pointer-events-none" />
   </div>
 </div>
-
-        </div>
+</div>
 
         {/* Featured In Bar */}
         <div className="w-full bg-[#fcf6ee] mt-20 py-12 left-0 right-0">
