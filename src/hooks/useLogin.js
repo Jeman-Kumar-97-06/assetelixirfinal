@@ -30,7 +30,7 @@ export const useLogin = () => {
             dispatch({ type: "LOGIN", payload: json });
             setIsLoading(false);
             setError(null);
-            router.push('/add-blog'); // Redirect to dashboard
+            router.push('/add-blogs'); // Redirect to dashboard
         }
     };
 

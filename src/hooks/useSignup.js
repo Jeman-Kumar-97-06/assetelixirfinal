@@ -29,7 +29,7 @@ export const useSignup = () => {
             localStorage.setItem('asstUsr', JSON.stringify(json));
             dispatch({ type: "LOGIN", payload: json });
             setIsLoading(false);
-            router.push('/add-blog'); // Redirect to dashboard
+            router.push('/add-blogs'); // Redirect to dashboard
         }
     }
     
